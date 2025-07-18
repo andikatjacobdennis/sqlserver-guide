@@ -18,12 +18,12 @@ By the end of this module, learners will be able to:
 
 - **Books:**
 
-  - "Database System Concepts" by Silberschatz, Korth, and Sudarshan
-  - "Microsoft SQL Server 2022: A Beginner’s Guide" by Dusan Petkovic
+  - "Database System Concepts | 6th Edition" by Silberschatz, Korth, and Sudarshan
+  - "Microsoft SQL Server 2019: A Beginner's Guide, Seventh Edition" by Dusan Petkovic
 
 - **Online Resources:**
 
-  - Microsoft Learn: SQL Server Introduction
+  - Microsoft Learn: What is sql server ([https://learn.microsoft.com/en-us/sql/sql-server/what-is-sql-server?view=sql-server-ver17](https://learn.microsoft.com/en-us/sql/sql-server/what-is-sql-server?view=sql-server-ver17))
   - Azure SQL Documentation ([https://learn.microsoft.com/en-us/azure/azure-sql/](https://learn.microsoft.com/en-us/azure/azure-sql/))
 
 ## Key Concepts & Detailed Content
