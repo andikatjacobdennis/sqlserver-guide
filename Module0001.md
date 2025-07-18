@@ -414,72 +414,40 @@ SQL Server is a robust relational database management system (RDBMS) developed b
 
 **Block Diagram of SQL Server Architecture:**
 
-```mermaid
-graph TD
+sequenceDiagram
+    participant Client
+    participant ProtocolLayer as Protocol Layer
+    participant RelationalEngine as Relational Engine (Query Processor)
+    participant StorageEngine as Storage Engine
+    participant BufferPool as Buffer Pool
+    participant LockManager as Lock Manager
+    participant TransactionManager as Transaction Manager
 
-    %% Client Applications
-    subgraph Client_Applications[Client Applications]
-        C1[User Application]
-        C2[SQL Server Management Studio]
-    end
+    Client->>ProtocolLayer: T-SQL Query
+    ProtocolLayer->>RelationalEngine: Query received
+    RelationalEngine->>RelationalEngine: Parse Query (Syntax, Object Validation)
+    RelationalEngine->>RelationalEngine: Optimize Query (Generate Execution Plan)
+    RelationalEngine->>RelationalEngine: Execute Plan
 
-    C1 --> P[Protocol Layer]
-    C2 --> P
-
-    %% SQL Server Core Components
-    subgraph SQL_Server_Components[SQL Server Core Components]
-        direction TB
-
-        P --> RE[Relational Engine (Query Processor)]
-
-        subgraph Relational_Engine_Details[Relational Engine Details]
-            QP[Query Parser]
-            QO[Query Optimizer]
-            QE[Execution Engine]
+    alt Data Access Required (Read/Write)
+        RelationalEngine->>StorageEngine: Data Request (using Execution Plan)
+        StorageEngine->>BufferPool: Check Cache for Data Page
+        alt Cache Hit
+            BufferPool-->>StorageEngine: Data Page from Cache
+        else Cache Miss
+            StorageEngine->>StorageEngine: Read Data Page from Disk
+            StorageEngine->>BufferPool: Load Data Page into Cache
         end
-
-        RE --> QP --> QO --> QE
-        QE --> SE[Storage Engine]
-
-        RE --> BP[Buffer Pool]
-        RE --> LM[Lock Manager]
-        RE --> TM[Transaction Manager]
-
-        SE --> DAF[Data Files]
-        SE --> LF[Log Files]
-
-        BP -- manages --> DAF
-        LM -- controls access --> DAF
-        TM -- ensures ACID --> LF
+        StorageEngine->>LockManager: Request/Acquire Locks
+        LockManager-->>StorageEngine: Lock Granted
+        StorageEngine-->>RelationalEngine: Data (from Buffer Pool/Disk)
+        RelationalEngine->>TransactionManager: Report Transaction Progress/Commit
+        TransactionManager-->>StorageEngine: Log Operations (to Log Files)
+        StorageEngine->>LockManager: Release Locks
     end
 
-    %% SQL Server Services
-    subgraph SQL_Server_Services[SQL Server Services]
-        SAS[SQL Server Agent]
-        SSRS[SQL Server Reporting Services]
-        SSIS[SQL Server Integration Services]
-        SSAS[SQL Server Analysis Services]
-    end
-
-    RE --- SAS
-    RE --- SSRS
-    RE --- SSIS
-    RE --- SSAS
-
-    %% Styles
-    style P fill:#f9f,stroke:#333,stroke-width:2px
-    style RE fill:#cef,stroke:#333,stroke-width:2px
-    style SE fill:#fc9,stroke:#333,stroke-width:2px
-    style QP fill:#fff,stroke:#333,stroke-width:1px
-    style QO fill:#fff,stroke:#333,stroke-width:1px
-    style QE fill:#fff,stroke:#333,stroke-width:1px
-    style BP fill:#bdf,stroke:#333,stroke-width:2px
-    style LM fill:#cfb,stroke:#333,stroke-width:2px
-    style TM fill:#fcc,stroke:#333,stroke-width:2px
-    style DAF fill:#eee,stroke:#333,stroke-width:1px
-    style LF fill:#eee,stroke:#333,stroke-width:1px
-
-```
+    RelationalEngine-->>ProtocolLayer: Query Results
+    ProtocolLayer-->>Client: Results
 
 **Sequence Diagram of SQL Server Query Lifecycle:**
 
