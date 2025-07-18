@@ -369,26 +369,31 @@ Understanding how data is structured and organized within a database is crucial 
 
 ### 5. **Overview of SQL Server**
 
-SQL Server is a prominent relational database management system (RDBMS) developed by Microsoft. To understand its capabilities and how it fits into various applications, it's essential to grasp the core concepts of RDBMS, its different editions, common use cases, and licensing models.
+Microsoft SQL Server is a powerful relational database management system (RDBMS) designed to store, retrieve, and manage data efficiently. It's widely used across industries for a variety of data-driven applications. To understand its capabilities, it helps to explore key concepts, editions, typical use cases, and licensing models.
 
-* **What is RDBMS?**
-    * **RDBMS stands for Relational Database Management System.** It's a type of database system that organizes data into tables (or "relations") consisting of rows and columns. This relational model was originally proposed by **E.F. Codd** in 1970.
-    * In an RDBMS, data is structured to recognize relations among stored items of information. This allows data to be easily retrieved, managed, and queried. SQL (Structured Query Language) is the standard language used to interact with relational databases.
+* **What is an RDBMS?**
+    * **RDBMS stands for Relational Database Management System.** It organizes data into tables (also called relations) with rows and columns.
+    * The relational model was first proposed by **E.F. Codd** in 1970.
+    * RDBMSs enable structured, consistent, and easily queryable data storage.
+    * SQL Server uses SQL (Structured Query Language) to query and manage relational data.
 
-* **SQL Server Editions**: Microsoft offers various editions of SQL Server, each tailored to different needs, scales, and budgets:
-    * **Enterprise Edition**: The most comprehensive edition, designed for mission-critical applications, large-scale data warehousing, and demanding online transaction processing (OLTP) workloads. It includes advanced features for high availability, security, and performance.
-    * **Standard Edition**: Provides core database functionalities for mid-tier applications and data marts. It offers a good balance of features, performance, and price for many businesses.
-    * **Developer Edition**: A full-featured version of SQL Server Enterprise Edition, but **licensed only for development and testing purposes**, not for production use. It's free to use for developers.
-    * **Express Edition**: A free, entry-level database for small, less-demanding applications. It has limitations on database size, CPU usage, and memory, making it suitable for learning, small web applications, and local development.
+* **SQL Server Editions**
+    Microsoft offers several editions of SQL Server, tailored to different needs:
+    * **Enterprise Edition**: Feature-rich and designed for mission-critical applications, large-scale data warehousing, and high-throughput OLTP workloads. Includes advanced security, availability, and performance features.
+    * **Standard Edition**: Provides core database capabilities suitable for most mid-tier applications and small-scale data warehouses. More cost-effective than Enterprise, but with feature limitations.
+    * **Developer Edition**: Identical in features to Enterprise Edition, but licensed only for development and testing, not for production. Free for developers to use in non-production environments.
+    * **Express Edition**: A free, lightweight edition with limitations on database size, memory, and CPU usage. Ideal for learning, small web apps, or desktop-based development.
 
-* **Use Cases**: SQL Server is versatile and used across a wide range of scenarios:
-    * **OLTP (Online Transaction Processing)**: This is a major use case, where SQL Server handles a large number of concurrent, short, and frequent transactions (e.g., order entry, banking transactions, e-commerce purchases). The focus is on rapid processing and maintaining data integrity.
-    * **Data Warehousing**: SQL Server is extensively used for building data warehouses, which are large repositories of historical data collected from various operational systems. This data is used for reporting, analysis, and business intelligence.
-    * **Business Intelligence (BI)**: Through its various components (like SSAS and SSRS), SQL Server provides a robust platform for BI, enabling organizations to analyze data, create reports, and generate insights for decision-making.
+* **Common Use Cases**
+    SQL Server is used in a wide range of scenarios:
+    * **OLTP (Online Transaction Processing)**: Handles high volumes of short, fast transactions (e.g., e-commerce, banking, POS systems). Emphasis on speed, concurrency, and data integrity.
+    * **Data Warehousing**: Supports large-scale data aggregation and analysis. Used to build centralized repositories for reporting and analytics (often using SQL Server Analysis Services).
+    * **Business Intelligence (BI)**: SQL Server includes tools like SSRS (for reporting) and SSAS (for analytics) to enable advanced insights and dashboards. Helps businesses analyze trends, forecast performance, and make data-driven decisions.
 
-* **Licensing Models**: Microsoft offers different ways to license SQL Server, impacting cost and how usage is measured:
-    * **Core-based Licensing**: This model licenses SQL Server based on the number of physical or virtual cores on the server where SQL Server is installed. This is generally preferred for high-density virtualization or cloud environments, or when the number of users cannot be easily counted.
-    * **CAL-based Licensing (Server + CAL)**: This model requires a license for the server itself, plus a Client Access License (CAL) for each user or device that accesses the SQL Server. This is often more cost-effective for organizations with a smaller, well-defined number of users or devices.
+* **Licensing Models**
+    Microsoft provides two main licensing models for SQL Server:
+    * **Core-Based Licensing**: Licenses are based on the number of physical or virtual cores. Suitable for environments with heavy workloads, virtualization, or cloud deployment. Minimum: 4 core licenses per physical processor.
+    * **Server + CAL Licensing (Client Access License)**: Requires a license for the SQL Server instance and a CAL for each user or device accessing it. More cost-effective for smaller, predictable user counts.
 
 ### 6. **SQL Server Architecture**
 
