@@ -11,6 +11,7 @@ Whether you're preparing for a job, managing production databases, or building e
 ## Modules
 
 [Module 0001: Introduction to Databases and SQL Server](Module0001_Introduction_to_Databases_and_SQL_Server.md)
+[Module 2: Installing and Configuring SQL Server](Module2_Installing_and_Configuring_SQL_Server.md)
 
 [TBD]
 
