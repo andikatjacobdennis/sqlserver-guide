@@ -41,17 +41,18 @@ By the end of this module, learners will be able to:
   * **Relational (SQL Server, MySQL, PostgreSQL)**: These are the most common type, organizing data into one or more tables (or "relations") of rows and columns. Each row is a record, and each column represents an attribute. Relationships between tables are established using common fields. They use SQL (Structured Query Language) for defining and manipulating data.
   * **NoSQL (MongoDB, Cassandra)**: These databases provide a mechanism for storage and retrieval of data that is modeled in means other than the tabular relations used in relational databases. They are often used for handling large sets of distributed data and are popular in big data and real-time web applications.
   * **Hierarchical (IBM Information Management System (IMS). While less common in new development, they are still used in legacy systems.)**: An older type of database where data is organized in a tree-like structure. Data is stored as "records" that are connected to one another through "links," resembling a one-to-many relationship (parent-child).
-
-* **Core Elements**: Regardless of the type, databases share fundamental building blocks that enable their functionality:
-    * **Entities**: Represent real-world objects or concepts (e.g., a "Customer," a "Product," an "Order").
-    * **Attributes**: Are the properties or characteristics that describe an entity (e.g., a "Customer" has attributes like "Name," "Address," "Email").
-    * **Relationships**: Define how entities are connected or associated with each other (e.g., a "Customer" `places` an "Order," an "Order" `contains` "Products"). These elements form the basis of the database schema, which defines the structure of the data.
-    
+  
 * **Core Elements**:
 
   * **Entities**: An entity is a "thing" or "object" in the real world that is distinct from all other objects. Entities can be concrete, such as a person or a book, or abstract, like a course offering or a flight reservation. An entity set is a collection of entities of the same type that share similar properties or attributes. For example, "instructor" could be an entity set representing all instructors at a university.
   * **Attributes**: Attributes are descriptive properties that each member of an entity set possesses. They define the characteristics of an entity. For instance, an instructor entity set might have attributes like ID, name, dept_name, and salary. Each entity will have its own specific value for each attribute.
   * **Relationships**: Relationships describe how entities are connected or associated with each other. For example, in a university database, a student entity might "take" a course offering entity, and an instructor entity "teaches" a course offering. These "takes" and "teaches" are examples of relationships between entities. The Entity-Relationship (E-R) model helps in mapping these real-world meanings and interactions into a conceptual schema for the database.
+ 
+* **ACID Properties**: ACID is an acronym for a set of properties that guarantee valid and reliable database transactions. These properties are crucial for ensuring data integrity, especially in concurrent environments.
+    * **Atomicity**: Ensures that a transaction is treated as a single, indivisible unit of work. Either all of the operations within the transaction are completed successfully, or none of them are. If any part of the transaction fails, the entire transaction is rolled back, leaving the database in its state before the transaction began. (e.g., in a money transfer, either both deduction from one account and addition to another happen, or neither does).
+    * **Consistency**: Ensures that a transaction brings the database from one valid state to another valid state. All data must follow predefined rules, constraints, and cascades. If a transaction violates any rules, it's rolled back. (e.g., if a database rule says account balances must be positive, a transaction that would make it negative will be rejected).
+    * **Isolation**: Guarantees that concurrent transactions execute in isolation from each other. The intermediate state of a transaction is not visible to other transactions until the transaction is committed. This prevents anomalies that can occur when multiple transactions try to access and modify the same data simultaneously. (e.g., two users trying to book the last available seat on a flight will not interfere with each other, and only one will succeed).
+    * **Durability**: Ensures that once a transaction has been committed, it will remain permanent, even in the event of system failures (like power outages or crashes). Committed data is written to non-volatile storage and will survive any subsequent system restart. (e.g., once a payment is confirmed, it will not disappear from the records even if the server crashes right after).
 
 ### 2. **Database Design Using ER Diagrams**
 
