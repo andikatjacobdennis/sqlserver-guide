@@ -50,20 +50,6 @@ By the end of this module, learners will be able to:
 
 ### 2. **Database Design Using ER Diagrams**
 
-* **Entity Types**:
-
-  * Strong (independent), Weak (dependent)
-* **Attributes**:
-
-  * Simple, Composite, Derived
-* **Relationships**:
-
-  * One-to-One (1:1), One-to-Many (1\:N), Many-to-Many (M\:N)
-* **Notation and Symbols**: Crow’s foot, UML, etc.
-* **Tools**: draw\.io, Lucidchart, ERDPlus
-
-### 2. **Database Design Using ER Diagrams**
-
 Database design using Entity-Relationship (ER) Diagrams is a crucial step in creating efficient and well-structured databases. It involves identifying and modeling the key components of the system.
 
 * **Entity Types**:
@@ -83,17 +69,42 @@ Database design using Entity-Relationship (ER) Diagrams is a crucial step in cre
 * **Notation and Symbols**:
     Various graphical notations are used to draw ER Diagrams, helping to visually represent the entities, attributes, and relationships. Common ones include:
     * **Crow’s Foot Notation**: Popular for its clear representation of cardinality (the "one" or "many" side of a relationship) using symbols that resemble a crow's foot.
-      ```mermaid
-       erDiagram
-          A ||--o| B : "One or Zero"
-          C ||--|| D : "One and only One"
-          E }o--o{ F : "Zero or Many"
-          G }|--|{ H : "One or Many"
-      ```
+ 
+        ```mermaid
+         erDiagram
+            A ||--o| B : "One or Zero"
+            C ||--|| D : "One and only One"
+            E ||--o{ F : "Zero or Many"
+            G ||--|{ H : "One or Many"
+        ```
+    
+        #### `A ||--o| B : "One or Zero"`
+        
+        * **Left (A)**: Exactly **one** (`||`)
+        * **Right (B)**: **Optional** (zero or one) (`o|`)
+        * **Meaning**: One `A` is associated with **zero or one** `B`
+        
+        #### `C ||--|| D : "One and only One"`
+        
+        * **Both sides**: Exactly **one** (`||`)
+        * **Meaning**: One `C` is associated with exactly **one** `D`, and vice versa — a **1:1 relationship**
+        
+        #### `E ||--o{ F : "Zero or Many"`
+        
+        * **Left (E)**: Exactly **one** (`||`)
+        * **Right (F)**: **Zero or many** (`o{`)
+        * **Meaning**: One `E` can be associated with **zero, one, or many** `F`s — a **1\:N (optional)** relationship
+        
+        #### `G ||--|{ H : "One or Many"`
+        
+        * **Left (G)**: Exactly **one** (`||`)
+        * **Right (H)**: **One or many** (`|{`)
+        * **Meaning**: One `G` must be associated with **at least one** `H` — a **1\:N (mandatory)** relationship
+            
     * **UML (Unified Modeling Language)**: While primarily used for object-oriented design, UML class diagrams can be adapted to model ER concepts.
     * **Chen Notation**: An older, more traditional notation that uses rectangles for entities, diamonds for relationships, and ovals for attributes.
  
-#### 2.1. This Mermaid ER Diagram below models a simplified e-commerce or shopping cart system. Let's break down its components:
+#### 2.1. This ER Diagram below models a simplified e-commerce or shopping cart system. Let's break down its components:
 
 ```mermaid
 erDiagram
