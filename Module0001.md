@@ -38,10 +38,15 @@ By the end of this module, learners will be able to:
 
 * **Definition**: A database is a collection of interrelated data and programs designed to access and modify that data.
 * **Types**:
+  * **Relational (SQL Server, MySQL, PostgreSQL)**: These are the most common type, organizing data into one or more tables (or "relations") of rows and columns. Each row is a record, and each column represents an attribute. Relationships between tables are established using common fields. They use SQL (Structured Query Language) for defining and manipulating data.
+  * **NoSQL (MongoDB, Cassandra)**: These databases provide a mechanism for storage and retrieval of data that is modeled in means other than the tabular relations used in relational databases. They are often used for handling large sets of distributed data and are popular in big data and real-time web applications.
+  * **Hierarchical (IBM Information Management System (IMS). While less common in new development, they are still used in legacy systems.)**: An older type of database where data is organized in a tree-like structure. Data is stored as "records" that are connected to one another through "links," resembling a one-to-many relationship (parent-child).
 
-  * Relational (SQL Server, MySQL, PostgreSQL)
-  * NoSQL (MongoDB, Cassandra)
-  * Hierarchical (IMS)
+* **Core Elements**: Regardless of the type, databases share fundamental building blocks that enable their functionality:
+    * **Entities**: Represent real-world objects or concepts (e.g., a "Customer," a "Product," an "Order").
+    * **Attributes**: Are the properties or characteristics that describe an entity (e.g., a "Customer" has attributes like "Name," "Address," "Email").
+    * **Relationships**: Define how entities are connected or associated with each other (e.g., a "Customer" `places` an "Order," an "Order" `contains` "Products"). These elements form the basis of the database schema, which defines the structure of the data.
+    
 * **Core Elements**:
 
   * **Entities**: An entity is a "thing" or "object" in the real world that is distinct from all other objects. Entities can be concrete, such as a person or a book, or abstract, like a course offering or a flight reservation. An entity set is a collection of entities of the same type that share similar properties or attributes. For example, "instructor" could be an entity set representing all instructors at a university.
@@ -446,7 +451,7 @@ Understanding how data is structured and organized within a database is crucial 
   * Cassandra: Wide-column for distributed setups
 
 
-## 🧪 Lab Exercises / Hands-On Practice
+## Lab Exercises / Hands-On Practice
 
 | # | Task                                             | Tool                | Outcome                |
 | - | ------------------------------------------------ | ------------------- | ---------------------- |
@@ -473,14 +478,3 @@ Understanding how data is structured and organized within a database is crucial 
 ### Practical Task
 
 * Design an ERD and a Level-1 DFD for a hospital management system.
-* Submission via GitHub repository.
-
-
-## Deliverables Checklist
-
-| Deliverable        | Format       | Submission Mode |
-| ------------------ | ------------ | --------------- |
-| ERD Design         | .png/.drawio | GitHub          |
-| DFD Diagram        | .pdf/.png    | GitHub          |
-| Lab Queries        | .sql scripts | GitHub          |
-| Assessment Answers | .docx/.md    | GitHub          |
