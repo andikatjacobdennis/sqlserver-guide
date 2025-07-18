@@ -575,53 +575,94 @@ This comprehensive guide should help you perform each of the lab exercises succe
 ### Knowledge Checks (MCQs)
 
 1.  **Which SQL Server Edition is best suited for a development and testing environment with full features, without licensing costs?**
-
-      - A) Express Edition
-      - B) Standard Edition
-      - C) Enterprise Edition
-      - D) Developer Edition
-      - **Answer:** D
-      - **Explanation:** Developer Edition is free and includes all features of Enterprise Edition, but is licensed only for development and testing.
+    - A) Express Edition
+    - B) Standard Edition
+    - C) Enterprise Edition
+    - D) Developer Edition
+    - **Answer:** D
+    - **Explanation:** Developer Edition is free and includes all features of Enterprise Edition, but is licensed only for development and testing.
 
 2.  **What is the primary benefit of configuring multiple data files for `tempdb`?**
-
-      - A) To increase the total storage capacity of `tempdb`.
-      - B) To reduce contention on `tempdb` allocation pages (PFS, GAM, SGAM).
-      - C) To enable `tempdb` to be backed up and restored.
-      - D) To allow `tempdb` to be used by `FILESTREAM`.
-      - **Answer:** B
-      - **Explanation:** Multiple `tempdb` data files help distribute I/O operations and reduce contention on shared internal resources, improving performance, especially on multi-core systems.
+    - A) To increase the total storage capacity of `tempdb`.
+    - B) To reduce contention on `tempdb` allocation pages (PFS, GAM, SGAM).
+    - C) To enable `tempdb` to be backed up and restored.
+    - D) To allow `tempdb` to be used by `FILESTREAM`.
+    - **Answer:** B
+    - **Explanation:** Multiple `tempdb` data files help distribute I/O operations and reduce contention on shared internal resources, improving performance, especially on multi-core systems.
 
 3.  **Which of the following is the most secure authentication mode for SQL Server in a domain environment?**
-
-      - A) SQL Server Authentication
-      - B) Mixed Mode Authentication
-      - C) Windows Authentication
-      - D) Basic Authentication
-      - **Answer:** C
-      - **Explanation:** Windows Authentication leverages the robust security infrastructure of Active Directory, offering centralized user management, strong password policies, and Kerberos support, making it the most secure option in domain environments.
+    - A) SQL Server Authentication
+    - B) Mixed Mode Authentication
+    - C) Windows Authentication
+    - D) Basic Authentication
+    - **Answer:** C
+    - **Explanation:** Windows Authentication leverages the robust security infrastructure of Active Directory, offering centralized user management, strong password policies, and Kerberos support, making it the most secure option in domain environments.
 
 4.  **When configuring SQL Server network settings, which protocol is most commonly used for client connections over a network?**
+    - A) Named Pipes
+    - B) Shared Memory
+    - C) TCP/IP
+    - D) VIA
+    - **Answer:** C
+    - **Explanation:** TCP/IP is the standard and most widely used network protocol for connecting to SQL Server over a network.
 
-      - A) Named Pipes
-      - B) Shared Memory
-      - C) TCP/IP
-      - D) VIA
-      - **Answer:** C
-      - **Explanation:** TCP/IP is the standard and most widely used network protocol for connecting to SQL Server over a network.
+5.  **Which SQL Server configuration option limits the amount of RAM SQL Server's buffer pool can consume, preventing it from starving the operating system or other applications?**
+    - A) `min server memory (MB)`
+    - B) `max server memory (MB)`
+    - C) `max degree of parallelism`
+    - D) `fill factor`
+    - **Answer:** B
+    - **Explanation:** `max server memory (MB)` explicitly sets the upper limit for the memory consumed by the SQL Server buffer pool, which is critical for system stability, especially on servers hosting other applications.
+
+6.  **For a named SQL Server instance, which of the following is crucial for client applications to locate the instance on the network without specifying a static port?**
+    - A) SQL Server Agent service running
+    - B) SQL Server Browser service running
+    - C) `FILESTREAM` enabled
+    - D) Dedicated Administrator Connection (DAC) configured
+    - **Answer:** B
+    - **Explanation:** The SQL Server Browser service listens for incoming SQL Server connections and provides client applications with information about named instances (including their dynamic port numbers), allowing clients to connect without knowing the specific port.
+
+7.  **When setting up a new SQL Server installation in a production environment, what is the best practice for assigning service accounts to the SQL Server Database Engine and SQL Server Agent?**
+    - A) Use the built-in `Local System` account for simplicity.
+    - B) Use a single domain user account for all SQL Server services.
+    - C) Use separate, low-privilege domain accounts (e.g., Managed Service Accounts or Group Managed Service Accounts).
+    - D) Use the Windows administrator account to ensure full permissions.
+    - **Answer:** C
+    - **Explanation:** Using separate, low-privilege domain accounts, such as Managed Service Accounts (MSAs) or Group Managed Service Accounts (gMSAs), enhances security by adhering to the principle of least privilege and simplifies password management in a domain environment.
+
+8.  **What is the primary purpose of registering a Service Principal Name (SPN) for the SQL Server service in an Active Directory domain?**
+    - A) To allow SQL Server to connect to other databases.
+    - B) To enable SQL Server Authentication for client logins.
+    - C) To facilitate Kerberos authentication for client connections.
+    - D) To assign a static port to the SQL Server instance.
+    - **Answer:** C
+    - **Explanation:** SPNs are essential for Kerberos authentication. Without proper SPN registration, client connections using Windows Authentication might fall back to the less secure NTLM protocol, or connections might fail entirely.
+
+9.  **You need to store large binary objects (BLOBs), such as images or documents, directly on the NTFS file system while maintaining transactional consistency with your SQL Server database. Which feature should you enable?**
+    - A) PolyBase
+    - B) Columnstore Index
+    - C) `FILESTREAM`
+    - D) Change Data Capture (CDC)
+    - **Answer:** C
+    - **Explanation:** `FILESTREAM` is designed to store large binary objects in the NTFS file system, providing direct file system access while ensuring transactional consistency with the SQL Server database engine.
 
 ### Short Answer Questions
 
 1.  Explain the difference between a SQL Server "default instance" and a "named instance," including how they are identified for connectivity.
 2.  Describe the steps involved in enabling TLS encryption for a SQL Server instance, and explain why disabling older TLS/SSL protocols is a critical security practice.
 3.  Outline the importance of using low-privilege service accounts for SQL Server services and provide an example of a potential security risk if this best practice is ignored.
+4.  Explain the significance of `tempdb` in SQL Server and list at least two best practices for optimizing its performance during installation and configuration.
+5.  What is the role of the SQL Server Browser service, and why is it particularly important for connecting to named instances of SQL Server?
+6.  Briefly explain what SQL Server Collation is. Why is it important to choose the correct collation during installation, and what are the implications of a mismatched collation between databases or instances?
 
 ### Practical Task
 
-  - **Description of practical assignment**: Design and implement a multi-instance SQL Server environment on a single Windows Server, including:
+-   **Description of practical assignment**: Design and implement a multi-instance SQL Server environment on a single Windows Server, including:
     1.  A default instance of SQL Server 2019 Developer Edition configured with Windows Authentication only, a specific collation (e.g., Latin1\_General\_CI\_AS), and `max server memory` set to 8GB.
     2.  A named instance of SQL Server 2019 Developer Edition with SQL Server Authentication enabled, a different collation (e.g., SQL\_Latin1\_General\_CP1\_CI\_AS), and `FILESTREAM` enabled.
     3.  Configure `tempdb` on *both* instances to have 8 data files, each 1GB in size, located on a separate drive (simulated if necessary).
     4.  Create inbound firewall rules for both instances to allow remote TCP/IP connections.
     5.  Perform an upgrade of a sample database from the default instance to the named instance using a backup/restore method, and update the compatibility level of the restored database.
     6.  Document all configuration changes and verify connectivity to both instances from a remote machine using SSMS, noting the authentication method used for each connection.
+    7.  Implement and verify Kerberos authentication for the default instance. This involves configuring a Service Principal Name (SPN) for the SQL Server service account and testing the connection to ensure it uses Kerberos.
+    8.  Automate a common SQL Server configuration task using a PowerShell script. For example, write a script to enable or disable a SQL Server feature (like `xp_cmdshell` for security hardening) or to adjust a server-level configuration option, and demonstrate its execution.
