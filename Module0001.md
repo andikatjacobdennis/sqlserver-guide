@@ -62,6 +62,86 @@ By the end of this module, learners will be able to:
 * **Notation and Symbols**: Crow’s foot, UML, etc.
 * **Tools**: draw\.io, Lucidchart, ERDPlus
 
+### 2. **Database Design Using ER Diagrams**
+
+Database design using Entity-Relationship (ER) Diagrams is a crucial step in creating efficient and well-structured databases. It involves identifying and modeling the key components of the system.
+
+* **Entity Types**:
+    * **Strong (Independent) Entity**: An entity that can exist on its own and has a unique primary key. It does not depend on another entity for its existence. For example, a "Customer" or a "Product" in a shopping cart system.
+    * **Weak (Dependent) Entity**: An entity whose existence depends on another (strong) entity. It does not have a primary key of its own; its primary key is derived in part from the strong entity it depends on. For example, "Payment Details" for a specific order, where the payment details wouldn't exist without the order.
+
+* **Attributes**:
+    * **Simple**: An attribute that cannot be broken down into smaller, meaningful parts. For example, "Name" or "Price".
+    * **Composite**: An attribute that can be divided into several simpler attributes. For example, "Address" could be composed of "Street", "City", and "Zip Code".
+    * **Derived**: An attribute whose value can be calculated from other attributes and is not stored directly in the database. For example, "Total Order Amount" can be derived from the sum of prices of all items in an order.
+
+* **Relationships**:
+    * **One-to-One (1:1)**: Each entity in one set is related to at most one entity in another set. For example, a "Customer" might have one "Shopping Cart" at a time.
+    * **One-to-Many (1:N)**: One entity in the first set can be related to multiple entities in the second set, but each entity in the second set is related to at most one entity in the first set. For example, one "Order" can have many "Order Items".
+    * **Many-to-Many (M:N)**: Entities in both sets can be related to multiple entities in the other set. For example, many "Customers" can "buy" many "Products", and many "Products" can be "bought" by many "Customers".
+
+* **Notation and Symbols**:
+    Various graphical notations are used to draw ER Diagrams, helping to visually represent the entities, attributes, and relationships. Common ones include:
+    * **Crow’s Foot Notation**: Popular for its clear representation of cardinality (the "one" or "many" side of a relationship) using symbols that resemble a crow's foot.
+      ```mermaid
+       erDiagram
+          A ||--o| B : "One or Zero"
+          C ||--|| D : "One and only One"
+          E }o--o{ F : "Zero or Many"
+          G }|--|{ H : "One or Many"
+      ```
+    * **UML (Unified Modeling Language)**: While primarily used for object-oriented design, UML class diagrams can be adapted to model ER concepts.
+    * **Chen Notation**: An older, more traditional notation that uses rectangles for entities, diamonds for relationships, and ovals for attributes.
+
+```mermaid
+erDiagram
+    CUSTOMER ||--o{ ORDER : places
+    CUSTOMER ||--|| SHOPPING_CART : has
+    CUSTOMER }|--|{ PRODUCT : buys
+    ORDER ||--o{ ORDER_ITEM : consists_of
+    ORDER ||--o{ PAYMENT_DETAILS : has
+    PRODUCT ||--o{ ORDER_ITEM : contains
+
+    CUSTOMER {
+        int CustomerID PK
+        varchar Name
+        varchar Email
+        varchar Street "Composite: CustomerAddress"
+        varchar City "Composite: CustomerAddress"
+        varchar ZipCode "Composite: CustomerAddress"
+    }
+
+    PRODUCT {
+        int ProductID PK
+        varchar Name
+        decimal Price
+    }
+
+    ORDER {
+        int OrderID PK
+        date OrderDate
+        decimal Total_Order_Amount "Derived"
+    }
+
+    PAYMENT_DETAILS {
+        int TransactionID PK
+        varchar PaymentMethod
+        decimal Amount
+    }
+
+    SHOPPING_CART {
+        int CartID PK
+        date CreationDate
+    }
+
+    ORDER_ITEM {
+        int ItemID PK
+        int OrderID FK
+        int ProductID FK
+        int Quantity
+    }
+```
+
 
 ### 3. **System Analysis Using Data Flow Diagrams (DFDs)**
 
