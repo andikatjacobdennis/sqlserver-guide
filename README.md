@@ -10,7 +10,7 @@ Whether you're preparing for a job, managing production databases, or building e
 
 ## Modules
 
-[Module 1: ]()
+[Module 1: Introduction to Databases & SQL Server](Module0001.md)
 
 [TBD]
 
