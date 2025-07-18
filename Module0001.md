@@ -623,25 +623,134 @@ Here's an explanation of each feature in the context of the comparison:
 
 | # | Task                                             | Tool                | Outcome                |
 | - | ------------------------------------------------ | ------------------- | ---------------------- |
-| 1 | Install SQL Server (Developer Edition or Docker) | SSMS/Docker         | Local DB setup         |
+| 1 | Install SQL Server (Developer Edition)           | SSMS                | Local DB setup         |
 | 2 | Explore System Databases                         | SSMS                | View internal DB roles |
-| 3 | Create ERD for E-Commerce DB                     | draw\.io/Lucidchart | Logical data model     |
-| 4 | Draw Level-1 DFD for LMS                         | draw\.io            | Visual data flow model |
-| 5 | Compare schema in SQL Server vs PostgreSQL       | SSMS + pgAdmin      | Feature comparison     |
-
+| 3 | Create ERD for E-Commerce DB                     | mermaid             | Logical data model     |
+| 4 | Draw Level-1 DFD for LMS                         | mermaid             | Visual data flow model |
 
 ## Assessments
 
 ### Knowledge Checks (MCQs)
 
-1. What is the purpose of the `tempdb` system database?
-2. Which of the following is NOT a relational database?
-3. Define a composite attribute in ER modeling.
+1.  **What is the purpose of the `tempdb` system database?**
+    * A) Stores system-wide configurations
+    * B) Acts as a template for new databases
+    * C) Holds temporary objects and intermediate results
+    * D) Manages SQL Agent jobs
+    * **Answer:** C) Holds temporary objects and intermediate results
+    * **Explanation:** `tempdb` is a global resource for temporary user objects (e.g., temp tables), internal objects (e.g., worktables for sorting), and version stores. It’s recreated every time SQL Server restarts.
+
+2.  **Which of the following is NOT a relational database?**
+    * A) SQL Server
+    * B) MongoDB
+    * C) PostgreSQL
+    * D) MySQL
+    * **Answer:** B) MongoDB
+    * **Explanation:** MongoDB is a **NoSQL** (non-relational) document database, while the others are relational databases (RDBMS) that use tables and SQL.
+
+3.  **Define a composite attribute in ER modeling.**
+    * A) An attribute derived from other attributes
+    * B) An attribute that cannot be divided into smaller parts
+    * C) An attribute made up of multiple simple attributes
+    * D) An attribute with a null value
+    * **Answer:** C) An attribute made up of multiple simple attributes
+    * **Explanation:** A **composite attribute** (e.g., `Address`) can be split into smaller sub-attributes (e.g., `Street`, `City`, `ZipCode`), unlike atomic (simple) attributes like `Age`.
+
+4.  **Which normal form ensures no transitive dependencies?**
+    * A) 1NF
+    * B) 2NF
+    * C) 3NF
+    * D) BCNF
+    * **Answer:** C) 3NF
+    * **Explanation:** 3NF specifically addresses transitive dependencies, where a non-key attribute is dependent on another non-key attribute, which in turn is dependent on the primary key.
+
+5.  **What does the `Crow’s Foot` notation `||--o{` represent?**
+    * A) One-to-one mandatory
+    * B) One-to-many optional
+    * C) Many-to-many
+    * D) One-to-one optional
+    * **Answer:** B) One-to-many optional (1:N, where "many" side is optional).
+    * **Explanation:** The `||` on the left signifies "exactly one" (mandatory one), while the `o{` on the right signifies "zero or many" (optional many).
+
+6.  **Which SQL Server tool is best for automating backups?**
+    * A) Azure Data Studio
+    * B) SQL Server Agent
+    * C) `bcp`
+    * D) SSRS
+    * **Answer:** B) SQL Server Agent
+    * **Explanation:** SQL Server Agent is a dedicated service within SQL Server designed for scheduling and executing administrative tasks, including database backups.
+
+7.  **What is the role of the `Query Optimizer`?**
+    * A) Parses SQL syntax
+    * B) Chooses the most efficient execution plan
+    * C) Manages memory allocation
+    * D) Enforces constraints
+    * **Answer:** B) Chooses the most efficient execution plan.
+    * **Explanation:** The Query Optimizer's primary function is to analyze the various ways a query can be executed and select the most cost-effective and efficient execution plan.
+
+8.  **Which ACID property ensures committed transactions survive crashes?**
+    * A) Atomicity
+    * B) Consistency
+    * C) Isolation
+    * D) Durability
+    * **Answer:** D) Durability
+    * **Explanation:** Durability guarantees that once a transaction is committed, its changes are permanently stored and will survive system failures.
+
+9.  **In a DFD, what symbol represents a data store?**
+    * A) Circle
+    * B) Rectangle
+    * C) Parallel lines
+    * D) Arrow
+    * **Answer:** C) Parallel lines (or open rectangle).
+    * **Explanation:** Data stores in DFDs are typically represented by two parallel lines or an open-ended rectangle, indicating a place where data is held.
+
+10. **Which SQL Server edition is free for production use but has resource limits?**
+    * A) Enterprise
+    * B) Standard
+    * C) Developer
+    * D) Express
+    * **Answer:** D) Express (free, but limited to 10GB database size).
+    * **Explanation:** SQL Server Express is the free-to-use edition that can be deployed in production environments but comes with strict resource limitations, including database size.
 
 ### Short Answer Questions
 
-* Explain 2NF with an example.
-* Compare SQL Server and MySQL for web applications.
+**Database Fundamentals**
+1.  What are the three main types of databases mentioned in the module, and what distinguishes them from each other?
+2.  Explain the difference between entities and attributes in database design.
+3.  What are the four ACID properties of database transactions, and why is each important?
+
+**ER Diagrams**
+4.  How would you identify a weak entity in an ER diagram?
+5.  What is the difference between a simple attribute and a composite attribute? Give examples.
+6.  How would you represent a many-to-many relationship in an ER diagram using Crow's Foot notation?
+
+**Data Flow Diagrams**
+7.  What are the four main components of a Data Flow Diagram (DFD)?
+8.  How does a Level-1 DFD differ from a Context Diagram (Level-0 DFD)?
+9.  In a shopping cart system DFD, what would be an example of a data flow between a process and a data store?
+
+**Database Normalization**
+10. What is the main goal of database normalization?
+11. Describe a situation where you would need to apply 2NF to a database table.
+12. Explain the concept of denormalization and when might it be appropriate to use.
+13. What is the primary rule for a table to be in **1NF (First Normal Form)**?
+14. How does **BCNF (Boyce-Codd Normal Form)** differ from 3NF, and when is it necessary to achieve BCNF?
+15. What problem does **4NF (Fourth Normal Form)** address, and how does it relate to multi-valued dependencies?
+16. Briefly explain **5NF (Fifth Normal Form)** and the type of redundancy it aims to eliminate.
+
+**SQL Server Architecture**
+17. What are the two main components of the SQL Server Database Engine?
+18. Explain the role of the Buffer Pool in SQL Server.
+19. What happens during the optimization phase of SQL query processing?
+
+**SQL Server Tools and Editions**
+20. What are the key differences between SQL Server Standard and Enterprise editions?
+21. When would you choose to use Azure Data Studio instead of SSMS?
+22. What is the purpose of the `sqlcmd` utility?
+
+**Cloud and Cross-Platform**
+23. What are the three Azure SQL deployment models mentioned in the module?
+24. What advantages does running SQL Server in a Docker container provide?
 
 ### Practical Task
 
