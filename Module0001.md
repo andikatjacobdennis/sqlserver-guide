@@ -385,17 +385,140 @@ Understanding how data is structured and organized within a database is crucial 
 
 ### 6. **SQL Server Architecture**
 
-* **Components**:
+SQL Server is a robust relational database management system (RDBMS) developed by Microsoft. Its architecture is designed to efficiently store, retrieve, manage, and secure data. Understanding its core components and how a query is processed is fundamental to optimizing its performance and ensuring data integrity.
 
-  * **Database Engine**: Core service
-  * **Storage Engine**: Physical data management
-  * **Query Processor**: Execution of T-SQL
-  * **Buffer Pool**: Memory management
-  * **Lock Manager**: Concurrency control
-* **Query Lifecycle**:
+  * **Components**:
 
-  * Parsing → Optimization → Execution
+      * **Database Engine**: This is the core service of SQL Server. It's responsible for managing all database operations, including data storage, processing, and security. It contains both the Relational Engine (which processes queries) and the Storage Engine (which manages files, pages, and indexing).
+      * **Storage Engine**: This component is responsible for the physical data management. It handles all operations related to input/output (I/O) to the database files (data files and log files). Key functions include:
+          * Managing how data is stored on disk (pages, extents).
+          * Implementing indexing for faster data retrieval.
+          * Ensuring data recovery and consistency through logging.
+      * **Query Processor (or Relational Engine)**: This component is the brain behind executing T-SQL (Transact-SQL, Microsoft's proprietary extension to SQL) statements. Its main tasks include:
+          * **Parsing**: Checking the syntax of the T-SQL query and translating it into an internal representation.
+          * **Optimization**: Generating an efficient execution plan for the query. This is a critical step where the optimizer considers various factors (indexes, statistics, joins) to find the fastest way to retrieve the requested data.
+          * **Execution**: Running the chosen execution plan to perform the actual data retrieval or modification.
+      * **Buffer Pool**: This is the main memory area within SQL Server that acts as a cache for data pages read from disk. When data is requested, the Storage Engine first checks the Buffer Pool. If the data is present (a "cache hit"), it's retrieved much faster than from disk. If not (a "cache miss"), the data is read from disk into the Buffer Pool for future use. Efficient use of the Buffer Pool is vital for performance.
+      * **Lock Manager**: In a multi-user environment, multiple users might try to access or modify the same data simultaneously. The Lock Manager is responsible for concurrency control, ensuring that data integrity is maintained. It acquires and releases various types of locks (e.g., shared locks for reads, exclusive locks for writes) on database resources (rows, pages, tables) to prevent conflicts and maintain the ACID properties (Atomicity, Consistency, Isolation, Durability) of transactions.
+      * **SQL Server Agent**: A background service that automates and executes scheduled administrative tasks, such as backups, replication, and job execution.
+      * **SQL Server Reporting Services (SSRS)**: A platform used for creating, deploying, and managing various types of reports from different data sources.
+      * **SQL Server Integration Services (SSIS)**: A platform for building high-performance data integration and workflow solutions. It's commonly used for Extract, Transform, Load (ETL) operations.
+      * **SQL Server Analysis Services (SSAS)**: A tool for Online Analytical Processing (OLAP) and data mining, used to create analytical databases (cubes) for business intelligence.
 
+  * **Query Lifecycle**: When a T-SQL query is submitted to SQL Server, it goes through a well-defined lifecycle:
+
+    1.  **Protocol Layer**: The query first arrives at the Protocol Layer, which manages the communication between the client application and the SQL Server instance.
+    2.  **Parsing**: The query text is parsed by the Query Parser (part of the Relational Engine). This step checks for syntax errors, validates object names (tables, columns), and converts the query into a query tree (a logical representation).
+    3.  **Optimization**: The Query Optimizer takes the query tree and generates several possible execution plans. It analyzes statistics, indexes, and existing data to estimate the cost (CPU, I/O) of each plan and selects the most efficient one. This chosen plan dictates how the data will be accessed and processed.
+    4.  **Execution**: The Execution Engine then takes the optimized execution plan and performs the actual operations. It interacts with the Storage Engine to retrieve or modify data, utilizing the Buffer Pool for caching and the Lock Manager for concurrency control. The results are then returned to the client.
+
+**Block Diagram of SQL Server Architecture:**
+
+```mermaid
+graph TD
+
+    %% Client Applications
+    subgraph Client_Applications[Client Applications]
+        C1[User Application]
+        C2[SQL Server Management Studio]
+    end
+
+    C1 --> P[Protocol Layer]
+    C2 --> P
+
+    %% SQL Server Core Components
+    subgraph SQL_Server_Components[SQL Server Core Components]
+        direction TB
+
+        P --> RE[Relational Engine (Query Processor)]
+
+        subgraph Relational_Engine_Details[Relational Engine Details]
+            QP[Query Parser]
+            QO[Query Optimizer]
+            QE[Execution Engine]
+        end
+
+        RE --> QP --> QO --> QE
+        QE --> SE[Storage Engine]
+
+        RE --> BP[Buffer Pool]
+        RE --> LM[Lock Manager]
+        RE --> TM[Transaction Manager]
+
+        SE --> DAF[Data Files]
+        SE --> LF[Log Files]
+
+        BP -- manages --> DAF
+        LM -- controls access --> DAF
+        TM -- ensures ACID --> LF
+    end
+
+    %% SQL Server Services
+    subgraph SQL_Server_Services[SQL Server Services]
+        SAS[SQL Server Agent]
+        SSRS[SQL Server Reporting Services]
+        SSIS[SQL Server Integration Services]
+        SSAS[SQL Server Analysis Services]
+    end
+
+    RE --- SAS
+    RE --- SSRS
+    RE --- SSIS
+    RE --- SSAS
+
+    %% Styles
+    style P fill:#f9f,stroke:#333,stroke-width:2px
+    style RE fill:#cef,stroke:#333,stroke-width:2px
+    style SE fill:#fc9,stroke:#333,stroke-width:2px
+    style QP fill:#fff,stroke:#333,stroke-width:1px
+    style QO fill:#fff,stroke:#333,stroke-width:1px
+    style QE fill:#fff,stroke:#333,stroke-width:1px
+    style BP fill:#bdf,stroke:#333,stroke-width:2px
+    style LM fill:#cfb,stroke:#333,stroke-width:2px
+    style TM fill:#fcc,stroke:#333,stroke-width:2px
+    style DAF fill:#eee,stroke:#333,stroke-width:1px
+    style LF fill:#eee,stroke:#333,stroke-width:1px
+
+```
+
+**Sequence Diagram of SQL Server Query Lifecycle:**
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant ProtocolLayer as Protocol Layer
+    participant RelationalEngine as Relational Engine (Query Processor)
+    participant StorageEngine as Storage Engine
+    participant BufferPool as Buffer Pool
+    participant LockManager as Lock Manager
+    participant TransactionManager as Transaction Manager
+
+    Client->>ProtocolLayer: T-SQL Query
+    ProtocolLayer->>RelationalEngine: Query received
+    RelationalEngine->>RelationalEngine: Parse Query (Syntax, Object Validation)
+    RelationalEngine->>RelationalEngine: Optimize Query (Generate Execution Plan)
+    RelationalEngine->>RelationalEngine: Execute Plan
+
+    alt Data Access Required (Read/Write)
+        RelationalEngine->>StorageEngine: Data Request (using Execution Plan)
+        StorageEngine->>BufferPool: Check Cache for Data Page
+        alt Cache Hit
+            BufferPool-->>StorageEngine: Data Page from Cache
+        else Cache Miss
+            StorageEngine->>StorageEngine: Read Data Page from Disk
+            StorageEngine->>BufferPool: Load Data Page into Cache
+        end
+        StorageEngine->>LockManager: Request/Acquire Locks
+        LockManager-->>StorageEngine: Lock Granted
+        StorageEngine-->>RelationalEngine: Data (from Buffer Pool/Disk)
+        RelationalEngine->>TransactionManager: Report Transaction Progress/Commit
+        TransactionManager-->>StorageEngine: Log Operations (to Log Files)
+        StorageEngine->>LockManager: Release Locks
+    end
+
+    RelationalEngine-->>ProtocolLayer: Query Results
+    ProtocolLayer-->>Client: Results
+```
 
 ### 7. **System Databases in SQL Server**
 
