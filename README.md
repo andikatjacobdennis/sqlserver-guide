@@ -10,7 +10,7 @@ Whether you're preparing for a job, managing production databases, or building e
 
 ## Modules
 
-[Module 0001: Introduction to Databases and SQL Server](Rename Module0001.md to Module 0001: Introduction to Databases and SQL Server.md)
+[Module 0001: Introduction to Databases and SQL Server](Module 0001: Introduction to Databases and SQL Server.md)
 
 [TBD]
 
