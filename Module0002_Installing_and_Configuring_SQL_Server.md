@@ -1,4 +1,4 @@
-# Module 2: **Installing and Configuring SQL Server**
+# Module 0002: **Installing and Configuring SQL Server**
 
 > **Module Objective**
 > This module provides a complete practical guide to installing, configuring, patching, and upgrading SQL Server, with explicit step-by-step instructions for every complex procedure, enabling learners to master installation, configuration, patching, and upgrade strategies.
