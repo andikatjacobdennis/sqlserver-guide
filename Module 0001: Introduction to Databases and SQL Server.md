@@ -1,4 +1,4 @@
-# Module 0001: **Introduction to Databases & SQL Server**
+# Module 0001: **Introduction to Databases and SQL Server**
 
 > **Module Objective**
 > To provide learners with a comprehensive understanding of database fundamentals, SQL Server architecture, modeling techniques (ERD, DFD), and the tools required for database development and management.
