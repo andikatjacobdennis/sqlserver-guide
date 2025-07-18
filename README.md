@@ -32,10 +32,6 @@ This guide synthesizes knowledge from authoritative and community sources, inclu
 
 This content is licensed under the [MIT License](LICENSE). You are free to use, modify, and distribute it with attribution.
 
-## Contributing
-
-Pull requests are welcome. Please review the `CONTRIBUTING.md` file before submitting changes. Help us keep this guide up to date, technically accurate, and relevant.
-
 ## Contact & Community
 
 We welcome contributions, feedback, and discussion via GitHub Issues.
