@@ -92,6 +92,49 @@ Database design using Entity-Relationship (ER) Diagrams is a crucial step in cre
       ```
     * **UML (Unified Modeling Language)**: While primarily used for object-oriented design, UML class diagrams can be adapted to model ER concepts.
     * **Chen Notation**: An older, more traditional notation that uses rectangles for entities, diamonds for relationships, and ovals for attributes.
+ 
+#### 2.1. This Mermaid ER Diagram models a simplified e-commerce or shopping cart system. Let's break down its components:
+
+* **CUSTOMER**: Represents individuals making purchases.
+    * `CustomerID` (PK): Unique identifier for each customer.
+    * `Name`, `Email`: Simple attributes storing customer information.
+    * `Street`, `City`, `ZipCode`: These collectively form a **Composite Attribute** named "CustomerAddress," although individually listed here.
+* **PRODUCT**: Represents items available for purchase.
+    * `ProductID` (PK): Unique identifier for each product.
+    * `Name`, `Price`: Simple attributes describing the product.
+* **ORDER**: Represents a customer's purchase.
+    * `OrderID` (PK): Unique identifier for each order.
+    * `OrderDate`: Simple attribute indicating when the order was placed.
+    * `Total_Order_Amount` (Derived): This is a **Derived Attribute**, meaning its value is calculated from the prices and quantities of the products within the order, rather than being stored directly.
+* **PAYMENT_DETAILS**: Represents the payment information for an order.
+    * `TransactionID` (PK): Unique identifier for a payment transaction.
+    * `PaymentMethod`, `Amount`: Simple attributes.
+    * **Weak Entity**: This entity is likely a weak entity, as specific payment details usually depend on the existence of an `ORDER`. The relationship `ORDER ||--o{ PAYMENT_DETAILS` suggests this dependency.
+* **SHOPPING_CART**: Represents a customer's current shopping cart.
+    * `CartID` (PK): Unique identifier for a shopping cart.
+    * `CreationDate`: Simple attribute.
+* **ORDER_ITEM**: Represents a specific product included in an order. This often acts as a "bridge" or "junction" entity to resolve many-to-many relationships.
+    * `ItemID` (PK): Unique identifier for each item within an order.
+    * `OrderID` (FK): Foreign key linking to the `ORDER` it belongs to.
+    * `ProductID` (FK): Foreign key linking to the `PRODUCT` being ordered.
+    * `Quantity`: Simple attribute indicating how many units of the product are in this order item.
+
+#### 2.2 Relationships and Cardinality:
+
+* **CUSTOMER ||--o{ ORDER : places**
+    * **One-to-Many (1:N)**: A `CUSTOMER` can `places` many `ORDER`s, but each `ORDER` is placed by only one `CUSTOMER`. The `||--o{` notation means "exactly one" on the left side (customer) and "zero or many" on the right side (order).
+* **CUSTOMER ||--|| SHOPPING_CART : has**
+    * **One-to-One (1:1)**: A `CUSTOMER` `has` exactly one `SHOPPING_CART`, and a `SHOPPING_CART` belongs to exactly one `CUSTOMER`.
+* **CUSTOMER }|--|{ PRODUCT : buys**
+    * **Many-to-Many (M:N)**: Many `CUSTOMER`s can `buys` many `PRODUCT`s, and many `PRODUCT`s can be `bought` by many `CUSTOMER`s. The `}|--|{` notation signifies "many" on both sides. In a relational database, this relationship is typically resolved by an intermediary table, which in our diagram is `ORDER_ITEM`.
+* **ORDER ||--o{ ORDER_ITEM : consists_of**
+    * **One-to-Many (1:N)**: An `ORDER` `consists_of` many `ORDER_ITEM`s, but each `ORDER_ITEM` belongs to only one `ORDER`.
+* **ORDER ||--o{ PAYMENT_DETAILS : has**
+    * **One-to-Many (1:N)**, specifically representing a **Weak Entity Relationship**: An `ORDER` `has` many `PAYMENT_DETAILS` (though often it's one order to one payment, this notation allows for multiple payments or payment attempts). The `o{` on the `PAYMENT_DETAILS` side also implies it might be a weak entity, relying on `ORDER` for its existence.
+* **PRODUCT ||--o{ ORDER_ITEM : contains**
+    * **One-to-Many (1:N)**: A `PRODUCT` can be `contains` in many `ORDER_ITEM`s, but each `ORDER_ITEM` `contains` only one `PRODUCT`. This relationship, along with `ORDER ||--o{ ORDER_ITEM`, shows how `ORDER_ITEM` acts as the bridge for the many-to-many relationship between `ORDER` and `PRODUCT`.
+
+#### 2.3. ER Diagram
 
 ```mermaid
 erDiagram
