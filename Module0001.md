@@ -715,21 +715,25 @@ Here's an explanation of each feature in the context of the comparison:
 ### Short Answer Questions
 
 **Database Fundamentals**
+
 1.  What are the three main types of databases mentioned in the module, and what distinguishes them from each other?
 2.  Explain the difference between entities and attributes in database design.
 3.  What are the four ACID properties of database transactions, and why is each important?
 
 **ER Diagrams**
+
 4.  How would you identify a weak entity in an ER diagram?
 5.  What is the difference between a simple attribute and a composite attribute? Give examples.
 6.  How would you represent a many-to-many relationship in an ER diagram using Crow's Foot notation?
 
 **Data Flow Diagrams**
+
 7.  What are the four main components of a Data Flow Diagram (DFD)?
 8.  How does a Level-1 DFD differ from a Context Diagram (Level-0 DFD)?
 9.  In a shopping cart system DFD, what would be an example of a data flow between a process and a data store?
 
 **Database Normalization**
+
 10. What is the main goal of database normalization?
 11. Describe a situation where you would need to apply 2NF to a database table.
 12. Explain the concept of denormalization and when might it be appropriate to use.
@@ -739,16 +743,19 @@ Here's an explanation of each feature in the context of the comparison:
 16. Briefly explain **5NF (Fifth Normal Form)** and the type of redundancy it aims to eliminate.
 
 **SQL Server Architecture**
+
 17. What are the two main components of the SQL Server Database Engine?
 18. Explain the role of the Buffer Pool in SQL Server.
 19. What happens during the optimization phase of SQL query processing?
 
 **SQL Server Tools and Editions**
+
 20. What are the key differences between SQL Server Standard and Enterprise editions?
 21. When would you choose to use Azure Data Studio instead of SSMS?
 22. What is the purpose of the `sqlcmd` utility?
 
 **Cloud and Cross-Platform**
+
 23. What are the three Azure SQL deployment models mentioned in the module?
 24. What advantages does running SQL Server in a Docker container provide?
 
