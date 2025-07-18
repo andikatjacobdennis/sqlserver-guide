@@ -38,8 +38,4 @@ Pull requests are welcome. Please review the `CONTRIBUTING.md` file before submi
 
 ## Contact & Community
 
-We welcome contributions, feedback, and discussion via GitHub Issues. Join SQL Server communities like:
-
-- [SQLServerCentral](https://www.sqlservercentral.com/)
-- [Stack Overflow – SQL Server](https://stackoverflow.com/questions/tagged/sql-server)
-- [PASS Data Community Summit](https://www.pass.org/)
+We welcome contributions, feedback, and discussion via GitHub Issues.
